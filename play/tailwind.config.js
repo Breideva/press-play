@@ -5,10 +5,11 @@ export default {
     extend: {
       colors: {
         background: "#F0F5FA",
+        backgroundLight: "#E0E0E0",
         text: "#070C0D",
-        primary: "#D04D11",
-        secondary: "#F07942",
-        backgroundLight: "#D1E0F0",
+        primary: "#D1EAFF",
+        secondary: "#D04D11",
+        secondaryLight: "#F39468",
       },
       fontFamily: {
         martel: ["Martel", "sans-serif"],
