@@ -2,3 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.swiper-button-next {
+  color: #d04d11;
+  transition: all linear 0.5s;
+}
+.swiper-button-next:hover {
+  color: #f39468;
+  scale: 1.05
+}
+.swiper-button-prev {
+  color: #d04d11;
+  transition: all linear 0.5s;
+}
+.swiper-button-prev:hover {
+  color: #f39468;
+  scale: 1.05
+}
