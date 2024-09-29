@@ -6,18 +6,24 @@ export default function BigBanner() {
   const [banner, setBanner] = useState([]);
 
   const getBanner = async () => {
-    try {
-      const apiKey = import.meta.env.VITE_API_KEY;
-      const req = await fetch(
-        `https://api.rawg.io/api/games?key=${apiKey}&genres=14&page_size=1`
-      );
-      if (!req.ok) {
-        throw new Error(`HTTP error! status: ${req.status}`);
+    const check = localStorage.getItem("banner");
+    if (check) {
+      setBanner(JSON.parse(check));
+    } else {
+      try {
+        const apiKey = import.meta.env.VITE_API_KEY;
+        const req = await fetch(
+          `https://api.rawg.io/api/games?key=${apiKey}&genres=14&page_size=1`
+        );
+        if (!req.ok) {
+          throw new Error(`HTTP error! status: ${req.status}`);
+        }
+        const res = await req.json();
+        localStorage.setItem("banner", JSON.stringify(res.results));
+        setBanner(res.results);
+      } catch (error) {
+        console.error("Failed to fetch banner:", error);
       }
-      const res = await req.json();
-      setBanner(res.results);
-    } catch (error) {
-      console.error("Failed to fetch banner:", error);
     }
   };
 
@@ -33,7 +39,7 @@ export default function BigBanner() {
       {banner.map((items) => (
         <div
           key={items.id}
-          className="bg-background w-full rounded-xl p-8 transition-transform duration-700 shadow-xl hover:scale-105"
+          className="bg-backgroundLight w-full rounded-xl p-8 transition-transform duration-700 shadow-xl hover:scale-105"
         >
           <img
             className="w-fit rounded-xl"
