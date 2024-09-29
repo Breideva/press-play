@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { LuBookmarkPlus } from "react-icons/lu";
-import { EffectCoverflow, Mousewheel, Navigation } from "swiper/modules";
+import { EffectFlip, Mousewheel, Navigation } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/effect-coverflow";
+import "swiper/css/effect-flip";
+import "swiper/css/autoplay";
 import "swiper/css/navigation";
 import Person from "../assets/body-2-person.png";
 
@@ -43,23 +44,18 @@ export default function BodyScroll() {
     <div className="w-full lg:w-1/2 flex flex-col items-center justify-center">
       <Swiper
         className="text-center w-full lg:w-3/4"
-        slidesPerView={2}
-        breakpoints={{
-          1022: {
-            slidesPerView: 1,
-          },
-        }}
+        slidesPerView={1}
         mousewheel={true}
         navigation
-        effect="coverflow"
-        modules={[EffectCoverflow, Navigation, Mousewheel]}
+        effect="flip"
+        modules={[EffectFlip, Navigation, Mousewheel]}
       >
         {scroll.map((items) => (
           <SwiperSlide
-            className="bg-backgroundLight rounded-xl shadow-md"
+            className="bg-backgroundLight rounded-xl shadow-md transition-all duration-500 hover:bg-backgroundHover"
             key={items.id}
           >
-            <div className="flex flex-col md:flex-row justify-around items-center p-4">
+            <div className="flex justify-around items-center p-4">
               {items.metacritic !== undefined && items.metacritic !== null ? (
                 items.metacritic > 70 ? (
                   <h3
@@ -87,7 +83,7 @@ export default function BodyScroll() {
               <h1 className="text-text text-xl sm:text-2xl md:text-3xl xl:text-4xl font-bold">
                 {items.name}
               </h1>
-              <LuBookmarkPlus className="text-2xl sm:text-3xl md:text-4xl text-secondary transition-all duration-500 hover:text-secondaryLight" />
+              <LuBookmarkPlus className="text-2xl sm:text-3xl md:text-4xl text-primary transition-all duration-500 hover:text-secondary" />
             </div>
             <img className="rounded-b-xl" src={items.background_image} alt="" />
           </SwiperSlide>
@@ -98,7 +94,7 @@ export default function BodyScroll() {
           Some Games We Love!
         </h2>
         <img className="absolute w-1/2 z-10" src={Person} alt="" />
-        <div className="bg-secondary w-full lg:w-3/4 h-full absolute top-0 blur-3xl"></div>
+        <div className="bg-primary w-full lg:w-3/4 h-full absolute top-0 blur-3xl"></div>
       </div> */}
     </div>
   );

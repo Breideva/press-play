@@ -39,7 +39,7 @@ export default function BigBanner() {
       {banner.map((items) => (
         <div
           key={items.id}
-          className="bg-backgroundLight w-full rounded-xl p-8 transition-transform duration-700 shadow-xl hover:scale-105"
+          className="bg-backgroundLight w-full rounded-xl p-8 transition-transform duration-700 shadow-xl hover:bg-backgroundHover hover:scale-105"
         >
           <img
             className="w-fit rounded-xl"
@@ -64,7 +64,7 @@ export default function BigBanner() {
               {items.name}
             </h2>
 
-            <LuBookmarkPlus className="text-2xl sm:text-3xl md:text-4xl text-secondary transition-all duration-500 hover:text-secondaryLight" />
+            <LuBookmarkPlus className="text-2xl sm:text-3xl md:text-4xl text-primary transition-all duration-500 hover:text-secondary" />
           </div>
           <div className="grid grid-col-1 justify-center items-center gap-y-2 my-8 text-md sm:text-lg md:xl">
             <p>
