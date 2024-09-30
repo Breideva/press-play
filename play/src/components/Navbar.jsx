@@ -32,7 +32,7 @@ export default function Navbar() {
 
   return (
     <div className="flex justify-center">
-      <div className="w-full fixed flex justify-center z-50">
+      <div className="w-full fixed flex justify-center z-50 bg-gradient-to-b from-background">
         <div className="w-9/12 justify-between md:justify-between flex items-center">
           {linesOpen ? (
             <div className="flex justify-between w-full">
