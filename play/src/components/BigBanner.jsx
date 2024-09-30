@@ -2,28 +2,28 @@ import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { LuBookmarkPlus } from "react-icons/lu";
 
-export default function BigBanner() {
+export default function BigBanner({ genres = 6 }) {
   const [banner, setBanner] = useState([]);
 
   const getBanner = async () => {
-    const check = localStorage.getItem("banner");
-    if (check) {
-      setBanner(JSON.parse(check));
-    } else {
-      try {
-        const apiKey = import.meta.env.VITE_API_KEY;
-        const req = await fetch(
-          `https://api.rawg.io/api/games?key=${apiKey}&genres=14&page_size=1`
-        );
-        if (!req.ok) {
-          throw new Error(`HTTP error! status: ${req.status}`);
-        }
-        const res = await req.json();
-        localStorage.setItem("banner", JSON.stringify(res.results));
-        setBanner(res.results);
-      } catch (error) {
-        console.error("Failed to fetch banner:", error);
+    // const check = localStorage.getItem("banner-one");
+    // if (check) {
+    //   setBanner(JSON.parse(check));
+    // } else {
+    try {
+      const apiKey = import.meta.env.VITE_API_KEY;
+      const req = await fetch(
+        `https://api.rawg.io/api/games?key=${apiKey}&genres=${genres}&page_size=1`
+      );
+      if (!req.ok) {
+        throw new Error(`HTTP error! status: ${req.status}`);
       }
+      const res = await req.json();
+      // localStorage.setItem("banner-one", JSON.stringify(res.results));
+      setBanner(res.results);
+    } catch (error) {
+      console.error("Failed to fetch banner:", error);
+      // }
     }
   };
 
@@ -31,7 +31,6 @@ export default function BigBanner() {
     getBanner();
   }, []);
   useEffect(() => {
-    console.log(banner);
   }, [banner]);
 
   return (
