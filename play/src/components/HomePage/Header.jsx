@@ -1,6 +1,8 @@
 import React from "react";
-import person from "../assets/body-1-person.png";
-import circles from "../assets/body-1-circles.png";
+import person from "../../assets/body-1-person.png";
+import circles from "../../assets/body-1-circles.png";
+import { Link } from "react-router-dom";
+
 
 
 export default function Header() {
@@ -18,14 +20,14 @@ export default function Header() {
             </h1>
             <div className="flex items-center gap-8 sm:gap-6 md:gap-10 lg:gap-14">
               <div className="relative group flex">
-                <button className="relative text-2xl lg:text-3xl z-10 text-text bg-background p-4 rounded-lg border-b-2 border-primary transition-transform duration-700 group-hover:text-background group-hover:bg-text hover:scale-105 active:scale-95">
+                <Link to="/main/Games" className="relative text-2xl lg:text-3xl z-10 text-text bg-background p-4 rounded-lg border-b-2 border-primary transition-transform duration-700 group-hover:text-background group-hover:bg-text hover:scale-105 active:scale-95">
                   Games
-                </button>
+                </Link>
                 <div className="bg-primary w-full h-full absolute top-0 blur-2xl"></div>
               </div>
-              <button className="text-2xl lg:text-3xl p-3 border-4 border-primary text-primary shadow-xl rounded-lg transition-transform duration-700 hover:border-secondary hover:text-secondary hover:scale-105 active:scale-95">
+              <Link to="/category/singleplayer" className="text-2xl lg:text-3xl p-3 border-4 border-primary text-primary shadow-xl rounded-lg transition-transform duration-700 hover:border-secondary hover:text-secondary hover:scale-105 active:scale-95">
                 Favorites
-              </button>
+              </Link>
             </div>
           </div>
         </div>
