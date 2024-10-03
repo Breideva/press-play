@@ -5,9 +5,14 @@ import { Autoplay, Mousewheel } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-flip";
 import "swiper/css/autoplay";
+import { Link } from "react-router-dom";
 // import Person from "../assets/body-2-person.png";
 
-export default function BodyScroll({ genres = 7, speed = 1000 }) {
+export default function BodyScroll({
+  genres = 7,
+  speed = 1000,
+  mousewheel = true,
+}) {
   const [scroll, setScroll] = useState([]);
 
   const getScroll = async () => {
@@ -35,17 +40,16 @@ export default function BodyScroll({ genres = 7, speed = 1000 }) {
   useEffect(() => {
     getScroll();
   }, []);
-  useEffect(() => {
-  }, [scroll]);
+  useEffect(() => {}, [scroll]);
 
   return (
-    <div className="w-full h-3/4 rounded-xl flex flex-col items-center justify-center">
+    <div className="w-full h-3/4 rounded-xl flex flex-col items-center justify-center shadow-md">
       <Swiper
         className="text-center rounded-xl w-11/12"
         slidesPerView={1}
         pauseOnMouseEnter={true}
         spaceBetween={25}
-        mousewheel={true}
+        mousewheel={mousewheel}
         speed={speed}
         autoplay={{
           disableOnInteraction: false,
@@ -58,37 +62,44 @@ export default function BodyScroll({ genres = 7, speed = 1000 }) {
             className="bg-backgroundLight rounded-xl shadow-md transition-all duration-500 hover:bg-backgroundHover"
             key={items.id}
           >
-            <div className="flex justify-around flex-row xl:flex-row items-center p-4">
-              {items.metacritic !== undefined && items.metacritic !== null ? (
-                items.metacritic > 70 ? (
-                  <h3
-                    id="critic-btn"
-                    className="text-md sm:text-lg md:text-xl lg:text-sm xl:text-2xl border-4 p-2 rounded-xl border-green-600 text-green-600 font-bold"
-                  >
-                    {items.metacritic}
-                  </h3>
+            <Link to={`/game/${items.id}`}>
+              <div className="flex justify-around flex-row xl:flex-row items-center p-4">
+                {items.metacritic !== undefined && items.metacritic !== null ? (
+                  items.metacritic > 70 ? (
+                    <h3
+                      id="critic-btn"
+                      className="text-md sm:text-lg md:text-xl lg:text-sm xl:text-2xl border-4 p-2 rounded-xl border-green-600 text-green-600 font-bold"
+                    >
+                      {items.metacritic}
+                    </h3>
+                  ) : (
+                    <h3
+                      id="critic-btn"
+                      className="text-md sm:text-lg md:text-xl lg:text-sm xl:text-2xl border-4 p-2 rounded-xl border-red-600 text-red-600 font-bold"
+                    >
+                      {items.metacritic}
+                    </h3>
+                  )
                 ) : (
                   <h3
                     id="critic-btn"
-                    className="text-md sm:text-lg md:text-xl lg:text-sm xl:text-2xl border-4 p-2 rounded-xl border-red-600 text-red-600 font-bold"
+                    className="text-md sm:text-lg md:text-xl lg:text-sm xl:text-2xl border-4 p-2 rounded-xl border-text text-text font-bold"
                   >
-                    {items.metacritic}
+                    No Score
                   </h3>
-                )
-              ) : (
-                <h3
-                  id="critic-btn"
-                  className="text-md sm:text-lg md:text-xl lg:text-sm xl:text-2xl border-4 p-2 rounded-xl border-text text-text font-bold"
-                >
-                  No Score
-                </h3>
-              )}
-              <h1 className="text-text text-xl sm:text-2xl md:text-3xl xl:text-xl font-bold">
-                {items.name}
-              </h1>
-              <LuBookmarkPlus className="text-2xl sm:text-3xl md:text-4xl text-primary transition-all duration-500 hover:text-secondary" />
-            </div>
-            <img className="rounded-b-xl" src={items.background_image} alt="" />
+                )}
+                <h1 className="text-text text-xl sm:text-2xl md:text-3xl xl:text-xl font-bold">
+                  {items.name}
+                </h1>
+                <LuBookmarkPlus className="text-2xl sm:text-3xl md:text-4xl text-primary transition-all duration-500 hover:text-secondary" />
+              </div>
+              <img
+                loading="lazy"
+                className="rounded-b-xl"
+                src={items.background_image}
+                alt=""
+              />
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
