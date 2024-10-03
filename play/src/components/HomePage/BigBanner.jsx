@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { LuBookmarkPlus } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 export default function BigBanner({ genres = 6 }) {
   const [banner, setBanner] = useState([]);
@@ -31,14 +32,16 @@ export default function BigBanner({ genres = 6 }) {
     getBanner();
   }, []);
   useEffect(() => {
+    // console.log(banner[0].id)
   }, [banner]);
 
   return (
-    <div className="w-full lg:w-1/2 z-20">
+    <div className="w-11/12 lg:w-5/12 z-20 pb-8">
       {banner.map((items) => (
-        <div
+        <Link
+        to={`/game/${items.id}`}
           key={items.id}
-          className="bg-backgroundLight w-full rounded-xl p-8 transition-transform duration-700 shadow-xl hover:bg-backgroundHover hover:scale-105"
+          className="bg-backgroundLight w-full block rounded-xl p-8 transition-transform duration-700 shadow-xl hover:bg-backgroundHover hover:scale-105"
         >
           <img
             className="w-fit rounded-xl"
@@ -50,7 +53,7 @@ export default function BigBanner({ genres = 6 }) {
             {items.short_screenshots.map((item) => (
               <div key={item.id} className="flex">
                 <img
-                  className="hover:scale-105 transition-transform duration-300"
+                  className="hover:scale-105 transition-transform duration-300 h-fit"
                   src={item.image}
                   loading="lazy"
                   alt=""
@@ -59,7 +62,7 @@ export default function BigBanner({ genres = 6 }) {
             ))}
           </div>
           <div className="flex gap-4 items-center justify-center my-4">
-            <h2 className="text-2xl sm:text-4xl md:5xl xl:text-6xl font-bold">
+            <h2 className="text-xl sm:text-3xl md:4xl xl:text-5xl font-bold">
               {items.name}
             </h2>
 
@@ -67,27 +70,27 @@ export default function BigBanner({ genres = 6 }) {
           </div>
           <div className="grid grid-col-1 justify-center items-center gap-y-2 my-8 text-md sm:text-lg md:xl">
             <p>
-              <span className="text-lg sm:text-2xl md:3xl font-semibold">
+              <span className="text-lg sm:text-2xl md:text-3xl font-semibold">
                 Released:
               </span>{" "}
               {items.released}
             </p>
             <p className="flex items-center">
-              <span className="text-lg sm:text-2xl md:3xl font-semibold mr-2">
+              <span className="text-lg sm:text-2xl md:text-3xl font-semibold mr-2">
                 Rating:
               </span>{" "}
               {items.rating}
               <FaStar className="text-yellow-500" />({items.reviews_count})
             </p>
             <p>
-              <span className="text-lg sm:text-2xl md:3xl font-semibold">
+              <span className="text-lg sm:text-2xl md:text-3xl font-semibold">
                 Downloads:
               </span>{" "}
               {items.added.toLocaleString()}
             </p>
-            <div className="flex flex-wrap gap-1 items-center">
+            <div className="flex flex-wrap gap-1 items-end">
               <p className="mr-1">
-                <span className="text-lg sm:text-2xl md:3xl font-semibold">
+                <span className="text-lg sm:text-2xl md:text-3xl font-semibold">
                   Genres:
                 </span>
               </p>
@@ -99,7 +102,7 @@ export default function BigBanner({ genres = 6 }) {
               ))}
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
