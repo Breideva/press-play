@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { LuBookmarkPlus } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 
 export default function GameGrid() {
@@ -62,9 +63,9 @@ export default function GameGrid() {
               />
             </form>
           </div>
-          <div className="text-text grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center text-center w-full">
+          <div className="text-text grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center items-center text-center w-full">
             {grid.map((items) => (
-              <div key={items.id}>
+              <Link to={`/game/${items.id}`} key={items.id}>
                 <div className="bg-backgroundLight  shadow-xl rounded-xl transition-all duration-500 hover:bg-backgroundHover hover:scale-105">
                   <img
                     className="p-4 rounded-xl"
@@ -76,7 +77,7 @@ export default function GameGrid() {
                   <LuBookmarkPlus className="text-2xl sm:text-3xl md:text-4xl text-primary transition-all duration-500 hover:text-secondary" />
                 </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
           <div>
