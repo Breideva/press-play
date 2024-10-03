@@ -8,7 +8,7 @@ export default {
         backgroundLight: "#0E181B",
         backgroundHover: "#152428",
         text: "#F0F5FA",
-        textLight: "rgba(7, 12, 13, 0.8)",
+        textLight: "rgb(240, 245, 250, 0.5)",
         primary: "#D04D11",
         secondary: "#F39468",
       },
