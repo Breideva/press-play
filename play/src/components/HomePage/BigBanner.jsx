@@ -68,7 +68,7 @@ export default function BigBanner({ genres = 6 }) {
 
             <LuBookmarkPlus className="text-2xl sm:text-3xl md:text-4xl text-primary transition-all duration-500 hover:text-secondary" />
           </div>
-          <div className="grid grid-col-1 justify-center items-center gap-y-2 my-8 text-md sm:text-lg md:xl">
+          <div className="grid grid-col-1 justify-center items-center gap-y-2 my-8 text-md sm:text-xl md:text-2xl font-light">
             <p>
               <span className="text-lg sm:text-2xl md:text-3xl font-semibold">
                 Released:
@@ -96,8 +96,8 @@ export default function BigBanner({ genres = 6 }) {
               </p>
               {items.genres.map((item, index) => (
                 <div key={item.id} className="flex">
-                  <p>{item.name}</p>
-                  {index < items.genres.length - 1 && ", "}
+                  <p>{item.name}{index < items.genres.length - 1 && ", "}</p>
+                  
                 </div>
               ))}
             </div>
