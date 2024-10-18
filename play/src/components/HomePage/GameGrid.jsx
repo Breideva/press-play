@@ -10,6 +10,8 @@ export default function GameGrid() {
   const [size, setSize] = useState(8);
   const [button, setButton] = useState("Show More");
 
+  const genre = "action"
+
   const addSize = () => {
     if (size < 24) {
       setSize((prevSize) => prevSize + 8);
@@ -27,7 +29,7 @@ export default function GameGrid() {
     try {
       const apiKey = import.meta.env.VITE_API_KEY;
       const req = await fetch(
-        `https://api.rawg.io/api/games?key=${apiKey}&genres=7&page_size=${size}`
+        `https://api.rawg.io/api/games?key=${apiKey}&genres=${genre}&page_size=${size}`
       );
       if (!req.ok) {
         throw new Error(`HTTP error! status: ${req.status}`);
@@ -63,6 +65,8 @@ export default function GameGrid() {
               />
             </form>
           </div>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-6xl w-full">{genre.charAt(0).toUpperCase() + genre.slice(1)}</h2>
+
           <div className="text-text grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center items-center text-center w-full">
             {grid.map((items) => (
               <Link to={`/game/${items.id}`} key={items.id}>
