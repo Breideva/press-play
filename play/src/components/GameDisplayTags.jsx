@@ -41,19 +41,27 @@ export default function GameDisplayTags({
   }, [params.content]);
 
   return (
-    <div className="flex justify-center relative bg-background text-text">
+    <div className="flex justify-center relative text-text">
       <div className="w-full flex justify-center">
         <div className="w-full gap-8 pt-12">
           <Link
             to={`/category/${tag}`}
-            className="text-4xl font-semi-bold flex items-end transition-all duration-500 hover:text-textLight"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semi-bold flex items-end transition-all duration-500 hover:text-textLight"
           >
             {tag.charAt(0).toUpperCase() + tag.slice(1) + " " + "Games"}
-            <FiChevronsRight className="text-3xl" />
+            <FiChevronsRight className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl" />
           </Link>
           <Swiper
             className="text-center rounded-xl w-full pt-4"
-            slidesPerView={3}
+            slidesPerView={1}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+              },
+              1025: {
+                slidesPerView: 3,
+              },
+            }}
             pauseOnMouseEnter={true}
             spaceBetween={25}
             mousewheel={true}
