@@ -12,7 +12,7 @@ export default function Home() {
       <FirstBody />
       <SecondBody />
       <ThirdBody />
-      <GameGrid />
+      <GameGrid width="9/12" tag="singleplayer" />
     </>
   );
 }

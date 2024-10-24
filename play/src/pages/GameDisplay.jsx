@@ -1,6 +1,7 @@
 import GameDisplayTags from "../components/GameDisplayTags";
 import BodyScroll from "../components/HomePage/BodyScroll";
 import { GiArrowCursor } from "react-icons/gi";
+import GameGrid from "../components/HomePage/GameGrid";
 
 export default function GameDisplay() {
   return (
@@ -25,7 +26,8 @@ export default function GameDisplay() {
           </div>
           <GameDisplayTags effect="none" tag="survival" />
           <GameDisplayTags effect="none" tag="action-adventure" />
-          <GameDisplayTags effect="none" tag="split-screen" />
+          <GameGrid tag="difficult"/>
+          {/* <GameDisplayTags effect="none" tag="split-screen" /> */}
         </div>
       </div>
     </div>
