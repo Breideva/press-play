@@ -4,6 +4,7 @@ import Home from "./Home";
 import GameDisplay from "./GameDisplay";
 import Category from "./Category";
 import Game from "./Game";
+import Searched from "./Searched";
 
 
 export default function AllPages() {
@@ -13,6 +14,7 @@ export default function AllPages() {
       <Route path="/main/:content" element={<GameDisplay />}/>
       <Route path="/category/:type" element={<Category />}/>
       <Route path="/game/:display" element={<Game />}/>
+      <Route path="/search/:menu" element={<Searched />}/>
       {/* <Route path="/main/:content" element={<GameDisplay />}/> */}
     </Routes>
   );
