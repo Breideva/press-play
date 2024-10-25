@@ -27,7 +27,7 @@ export default function Header() {
                 <div className="bg-primary w-full h-full absolute top-0 blur-2xl"></div>
               </div>
               <Link
-                to="/category/singleplayer"
+                to="/search/games"
                 className="text-2xl lg:text-3xl p-3 border-4 border-primary text-primary shadow-xl rounded-lg transition-transform duration-700 hover:border-secondary hover:text-secondary hover:scale-105 active:scale-95"
               >
                 Favorites

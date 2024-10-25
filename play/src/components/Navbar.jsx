@@ -106,7 +106,7 @@ export default function Navbar() {
                       Home
                     </Link>
                     <Link
-                      to="/games"
+                      to="/main/games"
                       className="border-b-2 p-2 border-background w-full transition-all duration-300 hover:bg-secondary"
                     >
                       Games
