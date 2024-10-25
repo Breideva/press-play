@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 // import Person from "../assets/body-2-person.png";
 
 export default function BodyScroll({
-  genres = 7,
+  genres,
   speed = 1000,
   mousewheel = true,
 }) {
@@ -59,7 +59,10 @@ export default function BodyScroll({
       >
         {scroll.map((items) => (
           <SwiperSlide
-            className="bg-backgroundLight rounded-xl shadow-md transition-all duration-500 hover:bg-backgroundHover"
+            className="rounded-xl transition-all duration-500 hover:bg-backgroundHover"
+            style={{
+              background: "linear-gradient(to bottom, #0E181B, #070C0D)",
+            }}
             key={items.id}
           >
             <Link to={`/game/${items.id}`}>
@@ -69,6 +72,13 @@ export default function BodyScroll({
                     <h3
                       id="critic-btn"
                       className="text-md sm:text-lg md:text-xl lg:text-sm xl:text-2xl border-4 p-2 rounded-xl border-green-600 text-green-600 font-bold"
+                    >
+                      {items.metacritic}
+                    </h3>
+                  ) : items.metacritic >= 60 && items.metacritic <= 70 ? (
+                    <h3
+                      id="critic-btn"
+                      className="text-md sm:text-lg md:text-xl lg:text-sm xl:text-2xl border-4 p-2 rounded-xl border-yellow-600 text-yellow-600 font-bold"
                     >
                       {items.metacritic}
                     </h3>
@@ -95,7 +105,7 @@ export default function BodyScroll({
               </div>
               <img
                 loading="lazy"
-                className="rounded-b-xl"
+                className="rounded-b-xl h-fit"
                 src={items.background_image}
                 alt=""
               />

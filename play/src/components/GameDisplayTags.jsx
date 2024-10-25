@@ -46,7 +46,7 @@ export default function GameDisplayTags({
         <div className="w-full gap-8 pt-12">
           <Link
             to={`/category/${tag}`}
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semi-bold flex items-end transition-all duration-500 hover:text-textLight"
+            className="w-fit text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semi-bold flex items-end transition-all duration-500 hover:text-textLight"
           >
             {tag.charAt(0).toUpperCase() + tag.slice(1) + " " + "Games"}
             <FiChevronsRight className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl" />
