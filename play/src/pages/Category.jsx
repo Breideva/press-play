@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { LuBookmarkPlus } from "react-icons/lu";
+import GameGrid from "../components/HomePage/GameGrid";
 
 export default function Category() {
   const params = useParams();
@@ -16,7 +17,6 @@ export default function Category() {
       return;
     }
   };
-
 
   const getCategory = async (name) => {
     try {
@@ -36,15 +36,24 @@ export default function Category() {
 
   useEffect(() => {
     getCategory(params.type);
-  }, [size]);
+  }, [params.type]);
+  useEffect(() => {
+    console.log(params.type);
+  }, [params]);
 
   return (
     <div className="flex justify-center relative bg-background text-text">
       <div className="w-full flex justify-center">
         <div className="w-9/12 flex flex-col text-center gap-8 pt-24 pb-12">
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold pt-12 pb-4">{params.type.charAt().toUpperCase() + params.type.slice(1) + " " + "Games"}</h1>
-          <div className="text-text grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center items-center text-center w-full">
-            {category.map((items) => (
+          <h1 className="text-4xl lg:text-5xl xl:text-7xl font-bold pt-12 pb-4">
+            {params.type.charAt().toUpperCase() +
+              params.type.slice(1) +
+              " " +
+              "Games"}
+          </h1>
+          <div className="text-text gap-4 justify-center items-center text-center w-full">
+            <GameGrid tag={params.type} title="" />
+            {/* {category.map((items) => (
               <Link to={`/game/${items.id}`} key={items.id}>
                 <div className="bg-backgroundLight  shadow-xl rounded-xl transition-all duration-500 hover:bg-backgroundHover hover:scale-105">
                   <img
@@ -58,13 +67,13 @@ export default function Category() {
                   </div>
                 </div>
               </Link>
-            ))}
+            ))} */}
           </div>
-          <div>
+          {/* <div>
             <button onClick={addSize} className="p-4 bg-backgroundLight rounded-xl shadow-xl transition-all duration-500 hover:scale-105 hover:bg-backgroundHover">
               {button}
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
