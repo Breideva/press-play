@@ -4,6 +4,7 @@ import { LuBookmarkPlus } from "react-icons/lu";
 import { FaStar } from "react-icons/fa";
 import GameInfoArray from "../components/GameInfoArray";
 import GameInfo from "../components/GameInfo";
+import BodyScroll from "../components/HomePage/BodyScroll";
 
 // import { gsap } from "gsap";
 // import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -59,9 +60,9 @@ export default function Game() {
   useEffect(() => {
     getGame(params.display);
   }, [params.display]);
-  useEffect(() => {
-    console.log(game);
-  }, [game]);
+  // useEffect(() => {
+
+  // }, [game]);
 
   return (
     <div className="flex justify-center relative bg-background text-text">
@@ -75,7 +76,7 @@ export default function Game() {
         {displayImg ? (
           <div
             onClick={showImg}
-            className="w-full h-full absolute bg-background bg-opacity-90 z-50 transition-all duration-300 "
+            className="w-full h-full absolute bg-background bg-opacity-90 z-50 transition-all duration-300 cursor-pointer"
           >
             <img
               className="w-1/2 sticky left-1/4 top-1/4 border-2 border-text"
@@ -165,14 +166,13 @@ export default function Game() {
                       key={items.id}
                     >
                       <img
-                        className="h-full transition-all duration-300 hover:scale-105"
+                        className="h-full transition-all duration-300 hover:scale-105 cursor-pointer"
                         src={items.image}
                         alt=""
                       />
                     </div>
                   ))}
                 </div>
-            
               </div>
               <div
                 className="w-full lg:w-1/2 grid-cols-2 grid gap-y-8 gap-x-4"
@@ -195,6 +195,13 @@ export default function Game() {
                         <h3
                           id="critic-btn"
                           className="text-md sm:text-lg md:text-xl lg:text-sm xl:text-6xl text-green-600 font-semibold"
+                        >
+                          {game.metacritic}
+                        </h3>
+                      ) : game.metacritic >= 60 && game.metacritic <= 70 ? (
+                        <h3
+                          id="critic-btn"
+                          className="text-md sm:text-lg md:text-xl lg:text-sm xl:text-6xl text-yellow-600 font-semibold"
                         >
                           {game.metacritic}
                         </h3>
@@ -277,18 +284,17 @@ export default function Game() {
                   span="1"
                 />
                 <GameInfo
-                    title="Rating"
-                    items={game?.esrb_rating?.name}
-                    size="20"
-                    padding="16"
-                  />
+                  title="Rating"
+                  items={game?.esrb_rating?.name}
+                  size="20"
+                  padding="16"
+                />
                 <GameInfoArray
-                    title="Tags"
-                    items={game.tags}
-                    propertyName="name"
-                    span="2"
-                  />
-                  
+                  title="Tags"
+                  items={game.tags}
+                  propertyName="name"
+                  span="2"
+                />
               </div>
             </div>
             <div>
