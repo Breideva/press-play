@@ -55,6 +55,15 @@ export const GamesContext = (props) => {
       });
     }
   };
+  const removeObj = (indexOne, indexTwo) => {
+    setMultiGames((prev) => [
+      ...prev.slice(0, indexOne),
+      ...prev.slice(indexTwo),
+    ]);
+  };
+  const removeAll = (index) => {
+    setMultiGames((prev) => []);
+  };
 
   useEffect(() => {
     if (result) {
