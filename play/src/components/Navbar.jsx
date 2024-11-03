@@ -56,13 +56,13 @@ export default function Navbar() {
                     Home
                   </Link>
                   <Link
-                    to="/"
+                    to="/profile/select"
                     className="border-b-2 p-2 border-background rounded-t-xl w-full transition-all duration-300 hover:bg-secondary"
                   >
                     Profile
                   </Link>
                   <Link
-                    to="/games"
+                    to="/main/games"
                     className="border-b-2 p-2 border-background w-full transition-all duration-300 hover:bg-secondary"
                   >
                     Games
@@ -112,7 +112,7 @@ export default function Navbar() {
                       Games
                     </Link>
                     <Link
-                      to="/consoles"
+                      to="/pract/select"
                       className="border-b-2 p-2 border-background w-full transition-all duration-300 hover:bg-secondary"
                     >
                       Consoles
@@ -129,9 +129,9 @@ export default function Navbar() {
 
               <SearchBar />
 
-              <button className="text-background bg-primary p-2 rounded-full transition-all duration-500 hover:bg-secondary">
+              <Link to="/profile/select" className="text-background bg-primary p-2 rounded-full transition-all duration-500 hover:bg-secondary">
                 <IoMdPerson className="text-2xl lg:text-3xl xl:text-4xl" />
-              </button>
+              </Link>
             </div>
           )}
         </div>
