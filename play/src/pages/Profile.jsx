@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 
 export default function Profile() {
-  const { multiGames, gridCon, setGridCon, removeObj, removeAll } =
+  const { multiGames, gridCon, setGridCon, removeObj, removeAll, isActive } =
     useContext(Context);
 
   return (
@@ -103,7 +103,7 @@ export default function Profile() {
                             </div>
                             <div>
                               <button
-                                onClick={() => removeObj(index, index + 1)}
+                                onClick={() => removeObj(index)}
                                 className="p-1 border-2 transition-all duration-500 border-red-600 rounded-xl mb-4 text-red-600 hover:text-red-400 hover:border-red-500"
                               >
                                 Remove
@@ -136,7 +136,7 @@ export default function Profile() {
                 </div>
                 <div className="flex justify-center items-center mt-20">
                   <button
-                    onClick={() => removeAll(multiGames)}
+                    onClick={() => removeAll()}
                     className="p-2 border-2 transition-all duration-500 border-red-600 rounded-xl mb-4 text-red-600 hover:text-red-400 hover:border-red-500"
                   >
                     Remove All
