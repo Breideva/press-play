@@ -42,7 +42,7 @@ export default function Category() {
   }, [params]);
 
   return (
-    <div className="flex justify-center relative bg-background text-text">
+    <div className="flex justify-center relative min-h-screen bg-background text-text">
       <div className="w-full flex justify-center">
         <div className="w-9/12 flex flex-col text-center gap-8 pt-24 pb-12">
           <h1 className="text-4xl lg:text-5xl xl:text-7xl font-bold pt-12 pb-4">

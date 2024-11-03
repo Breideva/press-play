@@ -5,7 +5,7 @@ import GameGrid from "../components/HomePage/GameGrid";
 
 export default function GameDisplay() {
   return (
-    <div className="flex justify-center relative text-text bg-background">
+    <div className="flex justify-center relative text-text min-h-screen bg-background">
       <div
         className="w-full flex justify-center"
         style={{
@@ -22,7 +22,7 @@ export default function GameDisplay() {
           <GameDisplayTags />
           <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
             <BodyScroll mousewheel="false" speed="1500" genres="3" />
-            <BodyScroll mousewheel="false" genres="5" />
+            <BodyScroll mousewheel="false" genres="7" />
           </div>
           <GameDisplayTags effect="none" tag="survival" />
           <GameDisplayTags effect="none" tag="action-adventure" />
