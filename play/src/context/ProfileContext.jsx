@@ -1,14 +1,32 @@
-import { act, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createContext } from "react";
+import { useLocation } from "react-router-dom";
 
 export const Context = createContext(null);
+
+export const StartAtTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 
 export const GamesContext = (props) => {
   const [game, setGame] = useState([]);
   const [size, setSize] = useState(8);
   const [result, setResult] = useState(null);
   const [actualGame, setActualGame] = useState({});
-  const [multiGames, setMultiGames] = useState([]);
+  const [gridCon, setGridCon] = useState(null);
+  const [isActive, setIsActive] = useState(() => {
+    const saved = localStorage.getItem("checks");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [multiGames, setMultiGames] = useState(() => {
+    const saved = localStorage.getItem("games");
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const getGame = async (name) => {
     try {
@@ -55,14 +73,27 @@ export const GamesContext = (props) => {
       });
     }
   };
-  const removeObj = (indexOne, indexTwo) => {
-    setMultiGames((prev) => [
-      ...prev.slice(0, indexOne),
-      ...prev.slice(indexTwo),
-    ]);
+  const removeObj = (index) => {
+    setMultiGames((prev) => {
+      if (index < 0 || index >= prev.length) return prev;
+      return [...prev.slice(0, index), ...prev.slice(index + 1)];
+    });
+    setIsActive((prev) => {
+      if (index < 0 || index >= prev.length) return prev;
+      return [...prev.slice(0, index), ...prev.slice(index + 1)];
+    });
   };
-  const removeAll = (index) => {
+  const removeAll = () => {
     setMultiGames((prev) => []);
+    setIsActive((prev) => []);
+  };
+  const changeActive = (items) => {
+    setIsActive((prev) => {
+      if (!prev.includes(items.id)) {
+        return [...prev, items.id];
+      }
+      return prev;
+    });
   };
 
   useEffect(() => {
@@ -74,6 +105,11 @@ export const GamesContext = (props) => {
   useEffect(() => {
     moveObj(actualGame);
   }, [actualGame]);
+
+  useEffect(() => {
+    localStorage.setItem("checks", JSON.stringify(isActive));
+    localStorage.setItem("games", JSON.stringify(multiGames));
+  }, [multiGames]);
 
   const contextValue = {
     game,
@@ -88,6 +124,15 @@ export const GamesContext = (props) => {
     multiGames,
     setMultiGames,
     moveObj,
+    removeAll,
+    removeObj,
+    gridCon,
+    setGridCon,
+    size,
+    setSize,
+    isActive,
+    setIsActive,
+    changeActive
   };
 
   return (
