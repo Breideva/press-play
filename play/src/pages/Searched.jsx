@@ -1,11 +1,23 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { LuBookmarkPlus } from "react-icons/lu";
+import { FaCheck } from "react-icons/fa6";
+import { Context } from "../context/ProfileContext";
 
 export default function Searched() {
+  const {
+    isActive,
+    changeActive,
+    setResult,
+    getGameId,
+    gridCon,
+    setGridCon,
+    size,
+    setSize,
+  } = useContext(Context);
+
   const params = useParams();
   const [searched, setSearched] = useState([]);
-  const [size, setSize] = useState(12);
   const [button, setButton] = useState("Show More");
 
   const addSize = () => {
@@ -47,17 +59,41 @@ export default function Searched() {
           {/* <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold pt-12 pb-4">{params.menu.charAt().toUpperCase() + params.menu.slice(1) + " " + "Games"}</h1> */}
           <div className="text-text grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center items-center text-center w-full">
             {searched.map((items) => (
-              <Link to={`/game/${items.id}`} key={items.id}>
+              <div key={items.id}>
                 <div className="bg-backgroundLight  shadow-xl rounded-xl transition-all duration-500 hover:bg-backgroundHover hover:scale-105">
-                  <img
-                    className="p-4 rounded-xl"
-                    src={items.background_image}
-                    alt=""
-                  />
+                  <Link to={`/game/${items.id}`}>
+                    <img
+                      className="p-4 rounded-xl"
+                      src={items.background_image}
+                      alt=""
+                    />
+                  </Link>
                   <div className="flex flex-col justify-center gap-4 items-center pb-4">
                     <div className="flex flex-wrap justify-center items-center gap-x-2">
-                      <h2 className="text-xl">{items.name}</h2>
-                      <LuBookmarkPlus className="text-3xl sm:text-2xl md:text-3xl text-primary transition-all duration-500 hover:text-secondary" />
+                      <Link to={`/game/${items.id}`} className="text-xl w-fit">
+                        {items.name}
+                      </Link>
+                      {isActive.includes(items.id) ||
+                      (localStorage.getItem("checks") &&
+                        localStorage.getItem("checks").includes(items.id)) ? (
+                        <div>
+                          <FaCheck
+                            className="text-2xl sm:text-3xl md:text-4xl
+                 text-primary transition-all cursor-pointer duration-500 hover:text-secondary"
+                          />
+                        </div>
+                      ) : (
+                        <div>
+                          <LuBookmarkPlus
+                            onClick={() => {
+                              setResult(getGameId(items));
+                              changeActive(items);
+                            }}
+                            className="text-2xl sm:text-3xl md:text-4xl
+                  text-primary transition-all cursor-pointer duration-500 hover:text-secondary"
+                          />
+                        </div>
+                      )}
                     </div>
                     <div className="flex gap-4 items-center">
                       {items.metacritic !== undefined &&
@@ -107,7 +143,7 @@ export default function Searched() {
                     </div> */}
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
           <div>

@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { json, Link, useParams } from "react-router-dom";
 import { LuBookmarkPlus } from "react-icons/lu";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel, EffectCoverflow } from "swiper/modules";
 import { FiChevronsRight } from "react-icons/fi";
+import { FaCheck } from "react-icons/fa6";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
+import { Context } from "../context/ProfileContext";
 
 export default function GameDisplayTags({
   tag = "multiplayer",
@@ -13,12 +15,23 @@ export default function GameDisplayTags({
 }) {
   const params = useParams();
   const [display, setDisplay] = useState([]);
+  const {
+    setResult,
+    getGameId,
+    isActive,
+    changeActive,
+  } = useContext(Context);
+
+  // const search = localStorage.getItem("checks");
+
+  // useEffect(() => {
+  //   console.log(JSON.stringify(isActive));
+  // }, [isActive]);
+  // useEffect(() => {
+  //   console.log(display.length);
+  // }, [isActive]);
 
   const getDisplay = async () => {
-    // const check = localStorage.getItem("grid")
-    // if(check){
-    // setGrid(JSON.parse(check))
-    // } else {
     try {
       const apiKey = import.meta.env.VITE_API_KEY;
       const req = await fetch(
@@ -68,9 +81,9 @@ export default function GameDisplayTags({
             effect={effect}
             modules={[Mousewheel, EffectCoverflow]}
           >
-            {display.map((items) => (
+            {display.map((items, index) => (
               <SwiperSlide
-                key={items.id}
+                key={index}
                 className="bg-backgroundLight shadow-xl rounded-xl transition-all duration-500 hover:bg-backgroundHover"
               >
                 <Link to={`/game/${items.id}`}>
@@ -80,11 +93,29 @@ export default function GameDisplayTags({
                     alt=""
                     loading="lazy"
                   />
-                  <div className="flex-col flex sm:flex-row justify-center gap-4 items-center pb-4">
-                    <h2 className="text-xl">{items.name}</h2>
-                    <LuBookmarkPlus className="text-2xl sm:text-3xl md:text-4xl text-primary transition-all duration-500 hover:text-secondary" />
-                  </div>
                 </Link>
+                {isActive.includes(items.id) ||
+                localStorage.getItem("checks").includes(items.id) ? (
+                  <div className="flex-col flex sm:flex-row justify-center gap-4 items-center pb-4">
+                    <Link className="text-xl w-fit">{items.name}</Link>
+                    <FaCheck
+                      className="text-2xl sm:text-3xl md:text-4xl
+                 text-primary transition-all cursor-pointer duration-500 hover:text-secondary"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex-col flex sm:flex-row justify-center gap-4 items-center pb-4">
+                    <Link className="text-xl w-fit">{items.name}</Link>
+                    <LuBookmarkPlus
+                      onClick={() => {
+                        setResult(getGameId(items));
+                        changeActive(items);
+                      }}
+                      className="text-2xl sm:text-3xl md:text-4xl
+                  text-primary transition-all cursor-pointer duration-500 hover:text-secondary"
+                    />
+                  </div>
+                )}
               </SwiperSlide>
             ))}
           </Swiper>

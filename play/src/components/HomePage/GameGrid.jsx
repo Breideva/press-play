@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
-import { HiMagnifyingGlass } from "react-icons/hi2";
 import { LuBookmarkPlus } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
-import { FiChevronsRight } from "react-icons/fi";
+import { Context } from "../../context/ProfileContext";
+import { FaCheck } from "react-icons/fa6";
 
 export default function GameGrid({
   width,
   tag,
   title = tag.charAt(0).toUpperCase() + tag.slice(1) + " " + "Games",
 }) {
+  const {
+    isActive,
+    changeActive,
+    setResult,
+    getGameId,
+    gridCon,
+    setGridCon,
+    size,
+    setSize,
+  } = useContext(Context);
   const [grid, setGrid] = useState([]);
-  const [size, setSize] = useState(8);
   const [button, setButton] = useState("Show More");
-  const [gridCon, setGridCon] = useState(null);
 
-  // const addInfo = () => {
-  //   setGridCon(!gridCon);
-  // };
 
   const addSize = () => {
     if (size < 24) {
@@ -64,22 +69,6 @@ export default function GameGrid({
         <div
           className={`w-${width} flex flex-col gap-8 text-center lg:text-start justify-center items-center pt-14 mb-20`}
         >
-          {/* <div className="w-full flex flex-col sm:flex-row justify-center gap-4 items-center">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-              Search tags
-            </h2>
-            <form
-              className="w-full md:w-1/2 group p-2 rounded-xl flex items-center transition-all duration-500 hover:bg-backgroundHover bg-backgroundLight focus-within:bg-backgroundHover"
-              action=""
-            >
-              <HiMagnifyingGlass className="w-10 h-10 py-2 pl-2 text-2xl rounded-l-3xl text-text" />
-              <input
-                placeholder="E.g. Action, Indie, Scary"
-                className="pl-2 w-full h-full text-text outline-none text-xl rounded-xl transition-all bg-transparent duration-500 bg-opacity-0 group-bg-text group-focus-within:bg-opacity-100"
-                type="text"
-              />
-            </form>
-          </div> */}
           <div className="w-full">
             <Link
               to={`/category/${tag}`}
@@ -94,22 +83,45 @@ export default function GameGrid({
           <div className="text-text grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center items-center text-center w-full">
             {grid.map((items) =>
               gridCon === items.id ? (
-                <Link
-                  to={`/game/${items.id}`}
+                <div
                   key={items.id}
                   onMouseLeave={() => setGridCon(null)}
                   className="transition-all duration-500"
                 >
                   <div className="bg-backgroundLight relative shadow-xl rounded-t-xl transition-all duration-100 hover:bg-backgroundHover hover:scale-105">
-                    <img
-                      className="p-4 rounded-xl"
-                      src={items.background_image}
-                      loading="lazy"
-                      alt=""
-                    />
+                    <Link to={`/game/${items.id}`}>
+                      <img
+                        className="p-4 rounded-xl"
+                        src={items.background_image}
+                        loading="lazy"
+                        alt=""
+                      />
+                    </Link>
                     <div className="flex-col flex sm:flex-row justify-center gap-4 items-center pb-4">
-                      <h2 className="text-xl">{items.name}</h2>
-                      <LuBookmarkPlus className="text-2xl sm:text-3xl md:text-4xl text-primary transition-all duration-500 hover:text-secondary" />
+                      <Link to={`/game/${items.id}`} className="text-xl">
+                        {items.name}
+                      </Link>
+                      {isActive.includes(items.id) ||
+                      (localStorage.getItem("checks") &&
+                        localStorage.getItem("checks").includes(items.id)) ? (
+                        <div>
+                          <FaCheck
+                            className="text-2xl sm:text-3xl md:text-4xl
+                 text-primary transition-all cursor-pointer duration-500 hover:text-secondary"
+                          />
+                        </div>
+                      ) : (
+                        <div>
+                          <LuBookmarkPlus
+                            onClick={() => {
+                              setResult(getGameId(items));
+                              changeActive(items);
+                            }}
+                            className="text-2xl sm:text-3xl md:text-4xl
+                  text-primary transition-all cursor-pointer duration-500 hover:text-secondary"
+                          />
+                        </div>
+                      )}
                     </div>
                     <div
                       className="flex flex-col items-center transition-all duration-300 top-full absolute w-full rounded-b-xl bg-backgroundHover"
@@ -154,7 +166,7 @@ export default function GameGrid({
                       </div>
                     </div>
                   </div>
-                </Link>
+                </div>
               ) : (
                 <Link
                   // to={`/game/${items.id}`}
@@ -171,7 +183,27 @@ export default function GameGrid({
                     />
                     <div className="flex-col flex sm:flex-row justify-center gap-4 items-center pb-4">
                       <h2 className="text-xl">{items.name}</h2>
-                      <LuBookmarkPlus className="text-2xl sm:text-3xl md:text-4xl text-primary transition-all duration-500 hover:text-secondary" />
+                      {isActive.includes(items.id) ||
+                      (localStorage.getItem("checks") &&
+                        localStorage.getItem("checks").includes(items.id)) ? (
+                        <div>
+                          <FaCheck
+                            className="text-2xl sm:text-3xl md:text-4xl
+                 text-primary transition-all cursor-pointer duration-500 hover:text-secondary"
+                          />
+                        </div>
+                      ) : (
+                        <div>
+                          <LuBookmarkPlus
+                            onClick={() => {
+                              setResult(getGameId(items));
+                              changeActive(items);
+                            }}
+                            className="text-2xl sm:text-3xl md:text-4xl
+                  text-primary transition-all cursor-pointer duration-500 hover:text-secondary"
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 </Link>

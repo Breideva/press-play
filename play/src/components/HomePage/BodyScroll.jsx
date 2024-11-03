@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { LuBookmarkPlus } from "react-icons/lu";
 import { Autoplay, Mousewheel } from "swiper/modules";
@@ -6,6 +6,8 @@ import "swiper/css";
 import "swiper/css/effect-flip";
 import "swiper/css/autoplay";
 import { Link } from "react-router-dom";
+import { Context } from "../../context/ProfileContext";
+import { FaCheck } from "react-icons/fa6";
 // import Person from "../assets/body-2-person.png";
 
 export default function BodyScroll({
@@ -13,13 +15,11 @@ export default function BodyScroll({
   speed = 1000,
   mousewheel = true,
 }) {
+  const { setResult, getGameId, isActive, changeActive } = useContext(Context);
+
   const [scroll, setScroll] = useState([]);
 
   const getScroll = async () => {
-    // const check = localStorage.getItem("scroll")
-    // if(check){
-    //   setScroll(JSON.parse(check))
-    // } else {
     try {
       const apiKey = import.meta.env.VITE_API_KEY;
       const req = await fetch(
@@ -43,7 +43,7 @@ export default function BodyScroll({
   useEffect(() => {}, [scroll]);
 
   return (
-    <div className="w-full h-3/4 rounded-xl flex flex-col items-center justify-center shadow-md">
+    <div className="w-full h-full rounded-xl flex flex-col items-center justify-center">
       <Swiper
         className="text-center rounded-xl w-11/12"
         slidesPerView={1}
@@ -59,13 +59,13 @@ export default function BodyScroll({
       >
         {scroll.map((items) => (
           <SwiperSlide
-            className="rounded-xl transition-all duration-500 hover:bg-backgroundHover"
+            className="rounded-xl transition-all duration-500 hover:bg-backgroundHover h-fit"
             style={{
               background: "linear-gradient(to bottom, #0E181B, #070C0D)",
             }}
             key={items.id}
           >
-            <Link to={`/game/${items.id}`}>
+            <div>
               <div className="flex justify-around flex-row xl:flex-row items-center p-4">
                 {items.metacritic !== undefined && items.metacritic !== null ? (
                   items.metacritic > 70 ? (
@@ -98,18 +98,43 @@ export default function BodyScroll({
                     No Score
                   </h3>
                 )}
-                <h1 className="text-text text-xl sm:text-2xl md:text-3xl xl:text-xl font-bold">
+                <Link
+                  to={`/game/${items.id}`}
+                  className="text-text text-xl sm:text-2xl md:text-3xl xl:text-xl font-bold"
+                >
                   {items.name}
-                </h1>
-                <LuBookmarkPlus className="text-2xl sm:text-3xl md:text-4xl text-primary transition-all duration-500 hover:text-secondary" />
+                </Link>
+                {isActive.includes(items.id) ||
+                (localStorage.getItem("checks") &&
+                  localStorage.getItem("checks").includes(items.id)) ? (
+                  <div>
+                    <FaCheck
+                      className="text-2xl sm:text-3xl md:text-4xl
+                 text-primary transition-all cursor-pointer duration-500 hover:text-secondary"
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <LuBookmarkPlus
+                      onClick={() => {
+                        setResult(getGameId(items));
+                        changeActive(items);
+                      }}
+                      className="text-2xl sm:text-3xl md:text-4xl
+                  text-primary transition-all cursor-pointer duration-500 hover:text-secondary"
+                    />
+                  </div>
+                )}
               </div>
-              <img
-                loading="lazy"
-                className="rounded-b-xl h-fit"
-                src={items.background_image}
-                alt=""
-              />
-            </Link>
+              <Link to={`/game/${items.id}`}>
+                <img
+                  loading="lazy"
+                  className="rounded-3xl h-full p-4"
+                  src={items.background_image}
+                  alt=""
+                />
+              </Link>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

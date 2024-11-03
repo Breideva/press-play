@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { LuBookmarkPlus } from "react-icons/lu";
 import { FaStar } from "react-icons/fa";
 import GameInfoArray from "../components/GameInfoArray";
 import GameInfo from "../components/GameInfo";
 import BodyScroll from "../components/HomePage/BodyScroll";
+import { FaCheck } from "react-icons/fa6";
+import { Context } from "../context/ProfileContext";
 
 // import { gsap } from "gsap";
 // import { ScrollTrigger } from "gsap/ScrollTrigger";
 // gsap.registerPlugin(ScrollTrigger);
 
 export default function Game() {
+  const { setResult, getGameId, isActive, changeActive } = useContext(Context);
+
   const params = useParams();
   const [game, setGame] = useState({});
   const [screenshot, setScreenshot] = useState([]);
@@ -257,12 +261,37 @@ export default function Game() {
                 />
                 <div
                   // style={{ gridRow: "4 / span 2" }}
-                  className="bg-primary font-semibold h-full bg-opacity-95 col-span-2 justify-center flex items-center gap-2 transition-all duration-500 rounded-xl hover:scale-105 hover:bg-secondary"
+                  className="bg-primary font-semibold bg-opacity-95 col-span-2 transition-all duration-500 rounded-xl hover:scale-105 hover:bg-secondary"
                 >
-                  <button className="text-3xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-5xl">
-                    Add to Favroites
-                  </button>
-                  <LuBookmarkPlus className="text-3xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-5xl" />
+                  {isActive.includes(game?.id) ||
+                  (localStorage.getItem("checks") &&
+                    localStorage.getItem("checks").includes(game?.id)) ? (
+                    <div className="justify-center flex items-center gap-2 h-full">
+                      <button className="text-3xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-5xl">
+                        Add to Favroites
+                      </button>
+                      <FaCheck
+                        className="text-2xl sm:text-3xl md:text-4xl
+                 text-text transition-all duration-500"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => {
+                        setResult(getGameId(game));
+                        changeActive(game);
+                      }}
+                      className="justify-center flex items-center gap-2 h-full cursor-pointer"
+                    >
+                      <button className="text-3xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-5xl">
+                        Add to Favroites
+                      </button>
+                      <LuBookmarkPlus
+                        className="text-2xl sm:text-3xl md:text-4xl
+                  text-text transition-all duration-500"
+                      />
+                    </div>
+                  )}
                 </div>
                 <GameInfo
                   title="Website"
