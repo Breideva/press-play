@@ -10,6 +10,7 @@ export default function SearchBar() {
   const searchFor = (e) => {
     e.preventDefault();
     navigate( "/search/" + search)
+    // setSearch("")
   }
 
   return (
