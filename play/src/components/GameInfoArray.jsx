@@ -1,6 +1,3 @@
-import { useParams } from "react-router-dom";
-import { LuBookmarkPlus } from "react-icons/lu";
-
 export default function GameInfoArray({ title, items, propertyName, span, padding }) {
   return (
     <div

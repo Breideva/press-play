@@ -1,6 +1,5 @@
 import GameDisplayTags from "../components/GameDisplayTags";
 import BodyScroll from "../components/HomePage/BodyScroll";
-import { GiArrowCursor } from "react-icons/gi";
 import GameGrid from "../components/HomePage/GameGrid";
 
 export default function GameDisplay() {
