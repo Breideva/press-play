@@ -35,15 +35,15 @@ export default function BigBanner({ name }) {
   useEffect(() => {
     getBanner();
   }, []);
-  useEffect(() => {
-    console.log(screenshot);
-  }, [banner]);
+  // useEffect(() => {
+  //   console.log(screenshot);
+  // }, [banner]);
 
   return (
-    <div className="w-11/12 lg:w-5/12 z-20 pb-8">
+    <div className="w-11/12 lg:w-6/12 z-20 pb-8">
       <div
         key={banner.id}
-        className="bg-backgroundLight w-full block rounded-xl p-8 transition-transform duration-700 shadow-xl hover:bg-backgroundHover hover:scale-105"
+        className="bg-background w-full block rounded-xl p-8 transition-transform duration-700 shadow-xl hover:bg-backgroundHover hover:scale-105"
       >
         <Link to={`/game/${banner.id}`}>
           <img
@@ -97,26 +97,26 @@ export default function BigBanner({ name }) {
           </div>
         </div>
         <div className="grid grid-col-1 justify-center items-center gap-y-2 my-8 text-md sm:text-xl md:text-2xl font-light">
-          <p>
+          <p className="flex items-center justify-center gap-1">
             <span className="text-lg sm:text-2xl md:text-3xl font-semibold">
               Released:
             </span>{" "}
             {banner.released}
           </p>
-          <p className="flex items-center">
-            <span className="text-lg sm:text-2xl md:text-3xl font-semibold mr-2">
+          <p className="flex items-center justify-center gap-1">
+            <span className="text-lg sm:text-2xl md:text-3xl font-semibold">
               Rating:
             </span>{" "}
             {banner.rating}
             <FaStar className="text-yellow-500" />({banner.reviews_count})
           </p>
-          <p>
+          <p className="flex items-center justify-center gap-1">
             <span className="text-lg sm:text-2xl md:text-3xl font-semibold">
               Downloads:
             </span>{" "}
             {banner?.added?.toLocaleString()}
           </p>
-          <div className="flex flex-wrap gap-1 items-end">
+          <div className="flex flex-wrap gap-1 items-end justify-center">
             <p className="mr-1">
               <span className="text-lg sm:text-2xl md:text-3xl font-semibold">
                 Genres:

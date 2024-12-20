@@ -293,17 +293,16 @@ export default function Game() {
                     </div>
                   )}
                 </div>
-                <GameInfo
-                  title="Website"
-                  items={<a href={game.website}>{game.website}</a>}
-                  color="#3C5DF0"
-                  span="1"
-                  size="16"
+                <GameInfoArray
+                  title="Tags"
+                  items={game.tags}
+                  propertyName="name"
+                  span="2"
                 />
                 <GameInfo
                   title="Achievements"
                   items={game.achievements_count}
-                  span="1"
+                  span="2"
                   size="24"
                 />
                 <GameInfoArray
@@ -317,12 +316,6 @@ export default function Game() {
                   items={game?.esrb_rating?.name}
                   size="20"
                   padding="16"
-                />
-                <GameInfoArray
-                  title="Tags"
-                  items={game.tags}
-                  propertyName="name"
-                  span="2"
                 />
               </div>
             </div>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { LuBookmarkPlus } from "react-icons/lu";
-import { Autoplay, Mousewheel } from "swiper/modules";
+import { Autoplay, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/effect-flip";
+import "swiper/css/effect-coverflow";
 import "swiper/css/autoplay";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/ProfileContext";
@@ -12,8 +12,7 @@ import { FaCheck } from "react-icons/fa6";
 
 export default function BodyScroll({
   genres,
-  speed = 1000,
-  mousewheel = true,
+  // mousewheel = true,
 }) {
   const { setResult, getGameId, isActive, changeActive } = useContext(Context);
 
@@ -23,7 +22,7 @@ export default function BodyScroll({
     try {
       const apiKey = import.meta.env.VITE_API_KEY;
       const req = await fetch(
-        `https://api.rawg.io/api/games?key=${apiKey}&genres=${genres}&page_size=8`
+        `https://api.rawg.io/api/games?key=${apiKey}&genres=${genres}&page_size=10`
       );
       if (!req.ok) {
         throw new Error(`HTTP error! status: ${req.status}`);
@@ -43,26 +42,29 @@ export default function BodyScroll({
   useEffect(() => {}, [scroll]);
 
   return (
-    <div className="w-full h-full rounded-xl flex flex-col items-center justify-center">
+    <div className="w-full h-full rounded-xl items-center justify-center">
       <Swiper
         className="text-center rounded-xl w-11/12"
         slidesPerView={1}
         pauseOnMouseEnter={true}
         spaceBetween={25}
-        mousewheel={mousewheel}
-        speed={speed}
+        // mousewheel={mousewheel}
+        speed={1500}
+        // loop={true}
+        centeredSlides={true}
         autoplay={{
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
         }}
-        modules={[Autoplay, Mousewheel]}
+        effect="coverflow"
+        modules={[Autoplay, EffectCoverflow]}
       >
         {scroll.map((items) => (
           <SwiperSlide
-            className="rounded-xl transition-all duration-500 hover:bg-backgroundHover h-fit"
-            style={{
-              background: "linear-gradient(to bottom, #0E181B, #070C0D)",
-            }}
+            className="rounded-xl bg-background transition-all duration-500 hover:bg-backgroundHover h-fit w-full"
+            // style={{
+            //   background: "linear-gradient(to bottom, #0E181B, #070C0D)",
+            // }}
             key={items.id}
           >
             <div>

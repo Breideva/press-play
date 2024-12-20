@@ -13,7 +13,7 @@ export default function GameInfo({ title, items, span, size, color, padding }) {
             className="flex"
             style={{ fontSize: `${size}px`, color: `${color}` }}
           >
-            <p className="font-normal">{items}</p>
+            <p className="text-sm sm:text-base font-normal">{items}</p>
           </div>
         ) : (
           <p>No data available</p>

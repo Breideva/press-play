@@ -15,12 +15,7 @@ export default function GameDisplayTags({
 }) {
   const params = useParams();
   const [display, setDisplay] = useState([]);
-  const {
-    setResult,
-    getGameId,
-    isActive,
-    changeActive,
-  } = useContext(Context);
+  const { setResult, getGameId, isActive, changeActive } = useContext(Context);
 
   // const search = localStorage.getItem("checks");
 
@@ -54,41 +49,38 @@ export default function GameDisplayTags({
   }, [params.content]);
 
   return (
-    <div className="flex justify-center relative text-text">
-      <div className="w-full flex justify-center">
-        <div className="w-full gap-8 pt-12">
-          <Link
+    <div className="w-full justify-center relative text-text bg-transparent col-span-1">
+        <div className="pt-12">
+          {/* <Link
             to={`/category/${tag}`}
-            className="w-fit text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semi-bold flex items-end transition-all duration-500 hover:text-textLight"
+            className="w-fit py-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semi-bold flex items-end transition-all duration-500 hover:text-textLight"
           >
             {tag.charAt(0).toUpperCase() + tag.slice(1) + " " + "Games"}
-            <FiChevronsRight className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl" />
-          </Link>
+            <FiChevronsRight className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl" />
+          </Link> */}
           <Swiper
-            className="text-center rounded-xl w-full pt-4"
-            slidesPerView={1}
+            className="text-center h-full"
+            slidesPerView={1.5}
             breakpoints={{
               768: {
                 slidesPerView: 2,
               },
               1025: {
-                slidesPerView: 3,
+                slidesPerView: 3.5,
               },
             }}
-            pauseOnMouseEnter={true}
-            spaceBetween={25}
+            loop={true}
+            centeredSlides={true}
             mousewheel={true}
+            spaceBetween={10}
             effect={effect}
             modules={[Mousewheel, EffectCoverflow]}
           >
             {display.map((items, index) => (
-              <SwiperSlide
-                key={index}
-                className="bg-backgroundLight shadow-xl rounded-xl transition-all duration-500 hover:bg-backgroundHover"
-              >
+              <SwiperSlide key={index} className="transition-all duration-500">
                 <Link to={`/game/${items.id}`}>
                   <img
-                    className="p-4 rounded-xl"
+                    className="hover:opacity-50 transition-all duration-300"
                     src={items.background_image}
                     alt=""
                     loading="lazy"
@@ -96,10 +88,10 @@ export default function GameDisplayTags({
                 </Link>
                 {isActive.includes(items.id) ||
                 localStorage.getItem("checks").includes(items.id) ? (
-                  <div className="flex-col flex sm:flex-row justify-center gap-4 items-center pb-4">
+                  <div className="flex-col flex sm:flex-row justify-center gap-4 items-center">
                     <Link className="text-xl w-fit">{items.name}</Link>
                     <FaCheck
-                      className="text-2xl sm:text-3xl md:text-4xl
+                      className="text-2xl sm:text-3xl md:text-3xl
                  text-primary transition-all cursor-pointer duration-500 hover:text-secondary"
                     />
                   </div>
@@ -119,7 +111,6 @@ export default function GameDisplayTags({
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
       </div>
     </div>
   );

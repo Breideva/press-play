@@ -1,8 +1,8 @@
-import FirstBody from "../components/Sections/FirstBody";
-import Header from "../components/Sections/Header";
-import SecondBody from "../components/Sections/SecondBody";
+import FirstBody from "../Sections/FirstBody";
+import Header from "../Sections/Header";
+import SecondBody from "../Sections/SecondBody";
 import GameGrid from "../components/HomePage/GameGrid";
-import ThirdBody from "../components/Sections/ThirdBody";
+import ThirdBody from "../Sections/ThirdBody";
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
       <FirstBody />
       <SecondBody />
       <ThirdBody />
-      <GameGrid width="9/12" tag="singleplayer" />
+
     </>
   );
 }

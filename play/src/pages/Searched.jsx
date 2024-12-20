@@ -12,13 +12,12 @@ export default function Searched() {
     getGameId,
     gridCon,
     setGridCon,
-    size,
-    setSize,
   } = useContext(Context);
 
   const params = useParams();
   const [searched, setSearched] = useState([]);
   const [button, setButton] = useState("Show More");
+  const [size, setSize] = useState(8);
 
   const addSize = () => {
     if (size < 40) {
@@ -53,7 +52,7 @@ export default function Searched() {
   }, [size]);
 
   return (
-    <div className="flex justify-center relative bg-background h-full text-text">
+    <div className="flex justify-center relative bg-background min-h-screen text-text">
       <div className="w-full flex justify-center">
         <div className="w-9/12 flex flex-col text-center gap-8 pt-24 pb-12">
           {/* <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold pt-12 pb-4">{params.menu.charAt().toUpperCase() + params.menu.slice(1) + " " + "Games"}</h1> */}
