@@ -22,6 +22,14 @@ export default function Navbar() {
     setOpen(!open);
   };
 
+  const closedOptions = [
+    { title: "Profile", to: "/profile/select" },
+    { title: "Home", to: "/" },
+    { title: "Games", to: "/main/games" },
+    { title: "About", to: "/about" },
+  ];
+  const openOption = closedOptions.slice(1);
+
   useEffect(() => {
     checkSize();
     window.addEventListener("resize", checkSize);
@@ -33,10 +41,10 @@ export default function Navbar() {
   return (
     <div className="flex justify-center">
       <div
-        className="w-full fixed flex justify-center z-50"
-        style={{
-          backgroundImage: "linear-gradient(to top, transparent, #070C0D)",
-        }}
+        className="w-full fixed flex justify-center z-50 bg-background"
+        // style={{
+        //   backgroundImage: "linear-gradient(to top, transparent, #070C0D)",
+        // }}
       >
         <div className="w-9/12 justify-between md:justify-between flex items-center">
           {linesOpen ? (
@@ -47,89 +55,51 @@ export default function Navbar() {
               {mobileOpen && (
                 <ul
                   onMouseLeave={toggleMobile}
-                  className="bg-primary w-3/12 flex flex-col absolute top-10 justify-center text-center items-center transition-all duration-500 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl mt-2 rounded-xl z-40"
+                  className="bg-background text-text border-2 border-text w-3/12 flex flex-col absolute top-10 justify-center text-center items-center transition-all duration-500 text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl mt-2 rounded-xl z-40"
                 >
-                  <Link
-                    to="/"
-                    className="border-b-2 p-2 border-background rounded-t-xl w-full transition-all duration-300 hover:bg-secondary"
-                  >
-                    Home
-                  </Link>
-                  <Link
-                    to="/profile/select"
-                    className="border-b-2 p-2 border-background rounded-t-xl w-full transition-all duration-300 hover:bg-secondary"
-                  >
-                    Profile
-                  </Link>
-                  <Link
-                    to="/main/games"
-                    className="border-b-2 p-2 border-background w-full transition-all duration-300 hover:bg-secondary"
-                  >
-                    Games
-                  </Link>
-                  <Link
-                    to="/consoles"
-                    className="border-b-2 p-2 border-background w-full transition-all duration-300 hover:bg-secondary"
-                  >
-                    Consoles
-                  </Link>
-                  <Link
-                    to="/about"
-                    className="p-2 w-full rounded-b-xl transition-all duration-300 hover:bg-secondary"
-                  >
-                    About
-                  </Link>
+                  {closedOptions.map((item) => (
+                    <Link
+                      to={item.to}
+                      className="p-2 w-full rounded-lg transition-all duration-300 hover:bg-backgroundHover"
+                    >
+                      {item.title}
+                    </Link>
+                  ))}
                 </ul>
               )}
-
               <SearchBar />
             </div>
           ) : (
             <div className="relative w-full flex items-center">
               <button
                 onClick={openToggle}
-                className="bg-primary text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold font-martel p-3 rounded-b-xl transition-all duration-500 hover:bg-secondary"
+                className="text-primary font-black text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-martel py-3 transition-all duration-300 hover:text-secondary"
               >
                 PressPlay
               </button>
 
               {open && (
-                <div className="absolute w-2/12 top-16">
+                <div className="absolute w-28 xl:w-40 top-12">
                   <ul
                     onMouseLeave={openToggle}
-                    className="bg-primary flex flex-col justify-center text-center items-center transition-all duration-500 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl w-full rounded-xl z-40"
+                    className="bg-background text-text border-2 flex flex-col justify-center text-center items-center transition-all duration-500 text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl w-full rounded-2xl z-40"
                   >
-                    <Link
-                      to="/"
-                      className="border-b-2 p-2 border-background rounded-t-xl w-full transition-all duration-300 hover:bg-secondary"
-                    >
-                      Home
-                    </Link>
-                    <Link
-                      to="/main/games"
-                      className="border-b-2 p-2 border-background w-full transition-all duration-300 hover:bg-secondary"
-                    >
-                      Games
-                    </Link>
-                    <Link
-                      to="/pract/select"
-                      className="border-b-2 p-2 border-background w-full transition-all duration-300 hover:bg-secondary"
-                    >
-                      Consoles
-                    </Link>
-                    <Link
-                      to="/about"
-                      className="p-2 w-full rounded-b-xl transition-all duration-300 hover:bg-secondary"
-                    >
-                      About
-                    </Link>
+                    {openOption.map((item) => (
+                      <Link
+                        to={item.to}
+                        className="p-2 w-full rounded-xl transition-all duration-300 hover:bg-backgroundHover"
+                      >
+                        {item.title}
+                      </Link>
+                    ))}
                   </ul>
                 </div>
               )}
-
               <SearchBar />
-
-              <Link to="/profile/select" className="text-background bg-primary p-2 rounded-full transition-all duration-500 hover:bg-secondary">
+              <Link
+                to="/profile/select"
+                className="text-background bg-primary p-2 rounded-full transition-all duration-500 hover:bg-secondary"
+              >
                 <IoMdPerson className="text-2xl lg:text-3xl xl:text-4xl" />
               </Link>
             </div>
