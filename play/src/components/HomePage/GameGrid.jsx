@@ -1,29 +1,28 @@
 import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { LuBookmarkPlus } from "react-icons/lu";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { Context } from "../../context/ProfileContext";
 import { FaCheck } from "react-icons/fa6";
+import Home from "../../pages/Home";
 
 export default function GameGrid({
-  width,
+  padding,
   tag,
   title = tag.charAt(0).toUpperCase() + tag.slice(1) + " " + "Games",
 }) {
-  const {
-    isActive,
-    changeActive,
-    setResult,
-    getGameId,
-    gridCon,
-    setGridCon,
-    size,
-    setSize,
-  } = useContext(Context);
+  const location = useLocation();
+  const { isActive, changeActive, setResult, getGameId, gridCon, setGridCon } =
+    useContext(Context);
   const [grid, setGrid] = useState([]);
   const [button, setButton] = useState("Show More");
-
+  const [size, setSize] = useState(8);
+  useEffect(() => {
+    setSize(8);
+    console.log("location chaged" + size);
+    setButton("Load More");
+  }, [location]);
 
   const addSize = () => {
     if (size < 24) {
@@ -64,16 +63,16 @@ export default function GameGrid({
   }, [grid]);
 
   return (
-    <div className="flex justify-center relative bg-background text-text">
+    <div className="flex justify-center relative text-text bg-transparent">
       <div className="w-full flex justify-center">
         <div
-          className={`w-${width} flex flex-col gap-8 text-center lg:text-start justify-center items-center pt-14 mb-20`}
+          className={`w-full flex flex-col gap-8 text-center lg:text-start justify-center items-center pt-${padding} mb-20`}
         >
           <div className="w-full">
             <Link
               to={`/category/${tag}`}
               className="flex w-fit justify-start items-center
-            text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semi-bold transition-all duration-500 hover:text-textLight"
+            text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold transition-all duration-500 hover:text-textLight"
             >
               {title}
               {/* <FiChevronsRight className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl" /> */}

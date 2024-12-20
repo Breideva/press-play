@@ -15,7 +15,6 @@ export const StartAtTop = () => {
 
 export const GamesContext = (props) => {
   const [game, setGame] = useState([]);
-  const [size, setSize] = useState(8);
   const [result, setResult] = useState(null);
   const [actualGame, setActualGame] = useState({});
   const [gridCon, setGridCon] = useState(null);
@@ -128,11 +127,9 @@ export const GamesContext = (props) => {
     removeObj,
     gridCon,
     setGridCon,
-    size,
-    setSize,
     isActive,
     setIsActive,
-    changeActive
+    changeActive,
   };
 
   return (
