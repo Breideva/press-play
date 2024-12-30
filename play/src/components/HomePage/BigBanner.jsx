@@ -53,11 +53,11 @@ export default function BigBanner({ name }) {
             alt=""
           />
         </Link>
-        <Link to={`/game/${banner.id}`} className="flex gap-2 my-2">
+        <Link to={`/game/${banner.id}`} className="grid grid-cols-3 sm:grid-cols-6 gap-2 my-2">
           {screenshot.map((items) => (
-            <div key={items.id} className="flex">
+            <div key={items.id} className="flex items-center justify-center">
               <img
-                className="hover:scale-105 transition-transform duration-300 h-fit"
+                className="hover:scale-105 transition-transform duration-300"
                 src={items.image}
                 loading="lazy"
                 alt=""
@@ -68,7 +68,7 @@ export default function BigBanner({ name }) {
         <div className="flex items-center justify-center gap-4">
           <Link
             to={`/game/${banner.id}`}
-            className="text-xl sm:text-3xl md:4xl xl:text-5xl font-bold"
+            className="text-xl sm:text-2xl md:3xl xl:text-4xl font-bold"
           >
             {banner.name}
           </Link>

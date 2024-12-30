@@ -168,9 +168,10 @@ export default function Game() {
                     <div
                       onClick={() => showImg(setSsImg(items.image))}
                       key={items.id}
+                      className="col-span-1"
                     >
                       <img
-                        className="h-full transition-all duration-300 hover:scale-105 cursor-pointer"
+                        className="transition-all duration-300 hover:scale-105 cursor-pointer"
                         src={items.image}
                         alt=""
                       />
@@ -181,7 +182,7 @@ export default function Game() {
               <div
                 className="w-full lg:w-1/2 grid-cols-2 grid gap-y-8 gap-x-4"
                 style={{
-                  gridTemplateRows: "250px 150px 200px 100px 150px 225px",
+                  gridTemplateRows: "250px 150px 200px 150px 150px",
                 }}
               >
                 {/* <GameInfoArray
@@ -233,12 +234,12 @@ export default function Game() {
                   <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-xl xl:text-3xl text-secondary pb-4 font-semibold">
                     Platforms
                   </h3>
-                  <div className="flex gap-1 flex-wrap justify-center text-xs sm:text-lg md:text-xl lg:text-xs xl:text-base">
+                  <div className="flex gap-1 flex-wrap justify-center text-xs sm:text-lg md:text-xl lg:text-xs xl:text-base overflow-hidden">
                     {game.platforms &&
                       game.platforms.length > 0 &&
                       game.platforms.map((items, index) => (
                         <div className="flex" key={index}>
-                          <p className="font-normal">
+                          <p className="text-sm sm:text-base font-normal">
                             {items.platform.name}
                             {index < game.platforms.length - 1 && ","}
                           </p>
@@ -299,12 +300,12 @@ export default function Game() {
                   propertyName="name"
                   span="2"
                 />
-                <GameInfo
+                {/* <GameInfo
                   title="Achievements"
                   items={game.achievements_count}
                   span="2"
                   size="24"
-                />
+                /> */}
                 <GameInfoArray
                   title="Genres"
                   items={game.genres}
@@ -320,20 +321,6 @@ export default function Game() {
               </div>
             </div>
             <div>
-              {/* <GameInfoArray
-                    title="Tags"
-                    items={game.tags}
-                    propertyName="name"
-                    span="1"
-                    height="300"
-                  />
-                  <GameInfoArray
-                    title="Tags"
-                    items={game.tags}
-                    propertyName="name"
-                    span="1"
-                    height="300"
-                  /> */}
             </div>
           </div>
         </div>

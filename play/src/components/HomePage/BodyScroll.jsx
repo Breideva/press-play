@@ -42,15 +42,12 @@ export default function BodyScroll({
   useEffect(() => {}, [scroll]);
 
   return (
-    <div className="w-full h-full rounded-xl items-center justify-center">
+    <div className="w-full rounded-xl items-center justify-center col-span-1">
       <Swiper
-        className="text-center rounded-xl w-11/12"
+        className="text-center rounded-xl w-full"
         slidesPerView={1}
-        pauseOnMouseEnter={true}
         spaceBetween={25}
-        // mousewheel={mousewheel}
         speed={1500}
-        // loop={true}
         centeredSlides={true}
         autoplay={{
           disableOnInteraction: false,
@@ -131,7 +128,7 @@ export default function BodyScroll({
               <Link to={`/game/${items.id}`}>
                 <img
                   loading="lazy"
-                  className="rounded-3xl h-full p-4"
+                  className="rounded-3xl p-4"
                   src={items.background_image}
                   alt=""
                 />
